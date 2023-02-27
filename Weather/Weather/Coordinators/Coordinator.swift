@@ -15,7 +15,7 @@ public protocol CoordinatorProtocol : AnyObject {
 }
 
 class Coordinator: CoordinatorProtocol {
-
+    
     unowned let rootController:UINavigationController
     // initiate navigationController
     required init(navigationController: UINavigationController) {
@@ -24,7 +24,6 @@ class Coordinator: CoordinatorProtocol {
     // start Coordinator
     func start() {
         let listingViewController = ListingViewControllerBuilder.build(delegate: self)
-        rootController.isNavigationBarHidden = true
         rootController.setViewControllers([listingViewController], animated: false)
     }
 }
@@ -42,14 +41,13 @@ extension Coordinator: ListingViewControllerDelegate {
 }
 
 extension Coordinator: DetailsViewControllerDelegate {
-    // Show detail View
     func showList() {
         rootController.popViewController(animated: true)
     }
 }
 
 extension Coordinator: AddCityViewControllerDelegate {
-    func succed() {
+    func succeded() {
         rootController.popViewController(animated: true)
     }
 }

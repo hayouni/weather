@@ -10,7 +10,7 @@ import CoreData
 
 extension Task: BaseModel  {
     
-    class func newInstance(name: String, lat: Double, lon: Double,
+    class func newInstance(name: String, lat: String, lon: String,
                            context: NSManagedObjectContext) -> Task {
         let task = NSEntityDescription.insertNewObject(forEntityName: "Task",
                                                        into: context) as! Task

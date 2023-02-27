@@ -8,7 +8,6 @@
 import Foundation
 
 protocol ListingViewModelProtocol {
-    var iban: String  { get }
     func performFetch(completionHandler: @escaping () -> Void)
     var numberOfItems: Int  { get }
     func cityName(for index: Int) -> String?
@@ -18,10 +17,7 @@ protocol ListingViewModelProtocol {
 class ListingViewModel: ListingViewModelProtocol {
     
     var taskList: [Task] = []
-    // get iban from manager
-    var iban: String {
-        return "beneficiaryManager.iban.orEmpty"
-    }
+
     func performFetch(completionHandler: @escaping () -> Void) {
         CoreDataManager.shared.performFetch { tasks in
             self.taskList = tasks

@@ -11,11 +11,11 @@ class AddCityViewControllerBuilder {
     
     class func build(delegate: AddCityViewControllerDelegate) -> AddCityViewController {
         
-        let addBeneficiaryViewController = AddCityViewController.instantiate()
-        addBeneficiaryViewController.viewModel = AddCityViewModel(coreDataManager: CoreDataManager.shared)
-        addBeneficiaryViewController.delegate = delegate
+        let addCityViewController = AddCityViewController.instantiate()
+        addCityViewController.viewModel = AddCityViewModel(coreDataManager: CoreDataManager.shared)
+        addCityViewController.delegate = delegate
         
-        return addBeneficiaryViewController
+        return addCityViewController
     }
 }
  

@@ -8,19 +8,24 @@
 import Foundation
 
 protocol DetailsViewModelProtocol {
-    var iban: String  { get }
- }
+    var city: Task?  { get }    
+    func getData(completion: @escaping (WeatherDetailEntity?) -> Void)
+}
 
 class DetailsViewModel: DetailsViewModelProtocol {
     
     var city: Task?
+    var service: Service?
     
-    init( city: Task?) {
+    init( city: Task?, service: Service) {
+        self.service = service
         self.city = city
     }
-    
-    // get iban from manager
-    var iban: String {
-        return "beneficiaryManager.iban.orEmpty"
+    func getData(completion: @escaping (WeatherDetailEntity?) -> Void) {
+        service?.getWeather(lat: city?.lat ?? "",
+                            lng: city?.lon ?? "",
+                            completion: { [weak self] entity in
+            completion(entity ?? self?.city?.weather?.asEntity)
+        })
     }
 }

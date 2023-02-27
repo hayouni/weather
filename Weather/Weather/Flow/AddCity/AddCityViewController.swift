@@ -7,16 +7,14 @@
 
 import UIKit
 
-
 public enum InputFieldTag: Int {
     case nameInputField = 0
     case latInputField = 1
     case lonInputField = 2
 }
 
-
 protocol AddCityViewControllerDelegate: AnyObject {
-    func succed()
+    func succeded()
 }
 
 class AddCityViewController: UIViewController, Storyboarded {
@@ -29,6 +27,9 @@ class AddCityViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    private func setupView() {
         nameTextField.delegate = self
         latTextField.delegate = self
         lonTextField.delegate = self
@@ -37,12 +38,10 @@ class AddCityViewController: UIViewController, Storyboarded {
         latTextField.tag = InputFieldTag.latInputField.rawValue
         lonTextField.tag = InputFieldTag.lonInputField.rawValue
     }
-    
     @IBAction func addCityHandleAction(_ sender: Any) {
         viewModel?.addTask()
-        delegate?.succed()
+        delegate?.succeded()
     }
-    
 }
 // MARK: - UITextFieldDelegate
 extension AddCityViewController: UITextFieldDelegate {
@@ -52,9 +51,7 @@ extension AddCityViewController: UITextFieldDelegate {
     }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
-        //        if case .ibanInputField = InputFieldTag(rawValue: textField.tag) {
         viewModel?.updateData(textField: textField)
-        //        }
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {

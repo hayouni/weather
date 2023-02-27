@@ -11,11 +11,11 @@ class ListingViewControllerBuilder {
     
     class func build(delegate: ListingViewControllerDelegate) -> ListingViewController {
         
-        let addBeneficiaryViewController = ListingViewController.instantiate()
-        addBeneficiaryViewController.viewModel = ListingViewModel()
-        addBeneficiaryViewController.delegate = delegate
+        let listingViewController = ListingViewController.instantiate()
+        listingViewController.viewModel = ListingViewModel()
+        listingViewController.delegate = delegate
         
-        return addBeneficiaryViewController
+        return listingViewController
     }
 }
  

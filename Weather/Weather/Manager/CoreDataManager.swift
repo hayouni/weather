@@ -6,7 +6,7 @@
 //
 
 import CoreData
-let persistentContainerName: String = "ToDoListModel"
+let persistentContainerName: String = "CityListModel"
 
 class CoreDataManager {
     
@@ -29,6 +29,27 @@ class CoreDataManager {
                                            cacheName: nil)
     }
     
+    func saveWeather(weather: String?,
+                     icon: String?,
+                     visibility: Double?,
+                     sunset: Double?,
+                     humidity: Double?,
+                     task: Task?,
+                     sunrise: Double?){
+        do {
+            let data = WeatherDetail(context: persistentContainer.viewContext)
+            data.humidity = humidity ?? 0.0
+            data.icon = icon.orEmpty
+            data.sunrise = sunrise ?? 0.0
+            data.sunset = sunset ?? 0.0
+            data.visibility = visibility ?? 0.0
+            data.weather = weather
+            data.task = task
+            try data.save()
+        } catch {
+            print("error")
+        }
+    }
     func performFetch(_ completion: @escaping ([Task]) -> Void) {
         do { try fetch.performFetch()
             guard let tasks = fetch.fetchedObjects else { return }
@@ -37,17 +58,9 @@ class CoreDataManager {
             print(error)
         }
     }
-    
-    func deleteTask(taskId: NSManagedObjectID) {
-        do {
-            guard let task = try viewContext.existingObject(with: taskId)  as? Task else { return }
-            try task.delete()
-        } catch {
-            print(error)
-        }
-    }
-    
-    func addTask(title: String, lat: Double, lon: Double) {
+    func addTask(title: String,
+                 lat: String,
+                 lon: String) {
         do {
             let task = Task(context: viewContext)
             task.name = title

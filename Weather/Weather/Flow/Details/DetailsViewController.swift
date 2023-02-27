@@ -12,25 +12,47 @@ protocol DetailsViewControllerDelegate: AnyObject {
 }
 
 class DetailsViewController: UIViewController, Storyboarded {
-
+    
+    @IBOutlet weak var sunrise: UILabel!
+    @IBOutlet weak var sunset: UILabel!
+    @IBOutlet weak var humidity: UILabel!
+    @IBOutlet weak var visibility: UILabel!
+    @IBOutlet weak var weather: UILabel!
+    @IBOutlet weak var weatherIcon: UIImageView!
+    
     var viewModel: DetailsViewModelProtocol?
     var delegate: DetailsViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        viewModel?.getData { entity in
+            self.setupView(entity: entity)
+        }
+        
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupView(entity: WeatherDetailEntity?) {
+        guard let data = entity else { return }
+        persistData(data)
+        DispatchQueue.main.async {
+            self.setupUI(data)
+        }
     }
-    */
-
+    private func persistData(_ data: WeatherDetailEntity) {
+        CoreDataManager.shared.saveWeather(weather: data.weather,
+                                           icon: data.weatherIcon,
+                                           visibility: data.visibility,
+                                           sunset: data.sunset,
+                                           humidity: data.humidity,
+                                           task: viewModel?.city,
+                                           sunrise: data.sunrise)
+        
+    }
+    private func setupUI(_ data: WeatherDetailEntity) {
+        sunrise.text = String(describing: data.sunrise ?? 0)
+        sunset.text =  String(describing: data.sunset ?? 0)
+        humidity.text = String(describing: data.humidity ?? 0)
+        visibility.text = String(describing: data.visibility ?? 0)
+        weather.text = String(describing: data.weather ?? "")
+        weatherIcon.image = UIImage(named: data.weatherIcon ?? "")
+    }
 }

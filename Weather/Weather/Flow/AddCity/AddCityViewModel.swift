@@ -8,7 +8,6 @@
 import UIKit
 
 protocol AddCityViewModelProtocol {
-    var iban: String  { get }
     func addTask()
     func updateData(textField: UITextField)
 }
@@ -16,29 +15,25 @@ protocol AddCityViewModelProtocol {
 class AddCityViewModel: AddCityViewModelProtocol {
     var coreDataManager: CoreDataManager
     var title: String = ""
-    var lon: Double = 0.0
-    var lat: Double = 0.0
+    var lon: String = ""
+    var lat: String = ""
 
     init(coreDataManager: CoreDataManager) {
         self.coreDataManager = coreDataManager
     }
-    // get iban from manager
-    var iban: String {
-        return "beneficiaryManager.iban.orEmpty"
-    }
-    
     func addTask() {
-        coreDataManager.addTask(title: title, lat: lat,lon: lon)
+        coreDataManager.addTask(title: title,
+                                lat: lat,
+                                lon: lon)
     }
-    // save user inputs in data manager
     func updateData(textField: UITextField) {
         switch InputFieldTag(rawValue: textField.tag) {
         case .nameInputField:
             title = textField.text.orEmpty
         case .latInputField:
-            lat = Double(textField.text.orEmpty) ?? 0.0
+            lat = textField.text.orEmpty
         case .lonInputField:
-            lon = Double(textField.text.orEmpty) ?? 0.0
+            lon = textField.text.orEmpty
         case .none:
             return
         }
