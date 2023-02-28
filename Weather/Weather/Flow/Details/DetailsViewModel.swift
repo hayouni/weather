@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import APIDataRetriever
 
 protocol DetailsViewModelProtocol {
     var city: Task?  { get }    
@@ -15,17 +16,17 @@ protocol DetailsViewModelProtocol {
 class DetailsViewModel: DetailsViewModelProtocol {
     
     var city: Task?
-    var service: Service?
+    var service: ServiceProtocol?
     
-    init( city: Task?, service: Service) {
+    init( city: Task?, service: ServiceProtocol) {
         self.service = service
         self.city = city
     }
     func getData(completion: @escaping (WeatherDetailEntity?) -> Void) {
         service?.getWeather(lat: city?.lat ?? "",
-                            lng: city?.lon ?? "",
-                            completion: { [weak self] entity in
-            completion(entity ?? self?.city?.weather?.asEntity)
+                            lon: city?.lon ?? "",
+                            completion: { [weak self] data in
+            completion(data?.asEntity ?? self?.city?.weather?.asEntity)
         })
     }
 }

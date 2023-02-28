@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import APIDataRetriever
 
 class DetailsViewControllerBuilder {
     
     class func build(delegate: DetailsViewControllerDelegate, city: Task?) -> DetailsViewController {
         
         let addBeneficiaryViewController = DetailsViewController.instantiate()
-        addBeneficiaryViewController.viewModel = DetailsViewModel(city: city, service: Service.shared)
+        addBeneficiaryViewController.viewModel = DetailsViewModel(city: city, service: Service())
         addBeneficiaryViewController.delegate = delegate
         
         return addBeneficiaryViewController

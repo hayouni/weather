@@ -32,10 +32,10 @@ class DetailsViewController: UIViewController, Storyboarded {
     }
     private func setupView(entity: WeatherDetailEntity?) {
         guard let data = entity else { return }
-        persistData(data)
         DispatchQueue.main.async {
             self.setupUI(data)
         }
+        persistData(data)
     }
     private func persistData(_ data: WeatherDetailEntity) {
         CoreDataManager.shared.saveWeather(weather: data.weather,

@@ -1,15 +1,13 @@
 //
 //  Network.swift
-//  Weather
+//  APIDataRetriever
 //
-//  Created by esens on 27/02/2023.
+//  Created by esens on 28/02/2023.
 //
 
 import Foundation
-import Combine
 
- 
-public class Network {
+final class Network {
     
     static let shared = Network()
     

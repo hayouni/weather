@@ -1,18 +1,18 @@
 //
-//  WeatherData.swift
-//  Weather
+//  WeatherDetailEntity.swift
+//  APIDataRetriever
 //
-//  Created by esens on 24/02/2023.
+//  Created by esens on 28/02/2023.
 //
 
 import Foundation
 
 // MARK: - WeatherData
-struct WeatherData: Codable {
+public struct WeatherData: Codable {
     let lat, lon: Double?
     let timezone: String?
     let timezoneOffset: Double?
-    let current: Current?
+    public let current: Current?
     let minutely: [Minutely]?
     let hourly: [Current]?
     let daily: [Daily]?
@@ -39,18 +39,18 @@ struct Alert: Codable {
 }
 
 // MARK: - Current
-struct Current: Codable {
-    let dt: Double?
-    let sunrise, sunset: Double?
-    let temp, feelsLike: Double?
-    let pressure, humidity: Double?
-    let dewPoint, uvi: Double?
-    let clouds, visibility: Double?
-    let windSpeed: Double?
-    let windDeg: Double?
-    let weather: [Weather]?
-    let windGust: Double?
-    let pop: Double?
+public struct Current: Codable {
+    public let dt: Double?
+    public let sunrise, sunset: Double?
+    public let temp, feelsLike: Double?
+    public let pressure, humidity: Double?
+    public let dewPoint, uvi: Double?
+    public let clouds, visibility: Double?
+    public let windSpeed: Double?
+    public let windDeg: Double?
+    public let weather: [Weather]?
+    public let windGust: Double?
+    public let pop: Double?
     
     enum CodingKeys: String, CodingKey {
         case dt, sunrise, sunset, temp
@@ -67,11 +67,11 @@ struct Current: Codable {
 }
 
 // MARK: - Weather
-struct Weather: Codable {
+public struct Weather: Codable {
     let id: Double?
-    let main: Main?
+    public let main: Main?
     let description: Description?
-    let icon: String?
+    public let icon: String?
 }
 
 enum Description: String, Codable {
@@ -83,7 +83,7 @@ enum Description: String, Codable {
     case scatteredClouds = "scattered clouds"
 }
 
-enum Main: String, Codable {
+public enum Main: String, Codable {
     case clear = "Clear"
     case clouds = "Clouds"
     case rain = "Rain"

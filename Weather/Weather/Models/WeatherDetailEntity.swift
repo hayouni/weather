@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import APIDataRetriever
 
 struct WeatherDetailEntity {
     let sunrise: Double?
@@ -17,6 +18,7 @@ struct WeatherDetailEntity {
 }
 
 extension WeatherData {
+    
     var asEntity: WeatherDetailEntity {
         let weather = current?.weather?.first?.main
         return  WeatherDetailEntity(sunrise: current?.sunrise,

@@ -1,0 +1,11 @@
+framework module APIDataRetriever {
+  umbrella header "APIDataRetriever.h"
+
+  export *
+  module * { export * }
+}
+
+module APIDataRetriever.Swift {
+  header "APIDataRetriever-Swift.h"
+  requires objc
+}
